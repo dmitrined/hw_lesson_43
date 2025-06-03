@@ -13,12 +13,12 @@ PS внимательно сравните размер исходного фа�
         String url = "https://www.ait-tr.de/blog/categories/tech-blog";
         String outputFileNameByte = "copy_byte.txt";
         String outputFileNameArray = "copy_array.txt";
-        copyingTimeByByte(url, outputFileNameByte); //copyByByte Время: 2488 мс
-        copyingTimeByArray(url, outputFileNameArray, 8192);//copyByArray Время: 219 мс
+        System.out.println("copyByByte Время: " + copyingTimeByByte(url, outputFileNameByte)); //copyByByte Время: 2488 мс
+        System.out.println("copyByArray Время: " +copyingTimeByArray( url, outputFileNameArray, 8192));//copyByArray Время: 219 мс
     }
 
 
-    public static void copyingTimeByByte(String url, String copyFileName) {
+    public static long copyingTimeByByte(String url, String copyFileName) {
         long startTime = System.nanoTime();
         try (InputStream fis = new URL(url).openStream();
              OutputStream fos = new FileOutputStream(copyFileName)) {
@@ -27,10 +27,10 @@ PS внимательно сравните размер исходного фа�
             System.out.println("Ошибка при копировании файла: " + e.getMessage());
         }
         long endTime = System.nanoTime();
-        System.out.println("copyByByte Время: " + (endTime - startTime) / 1_000_000 + " мс");
+        return  (endTime - startTime) / 1_000_000;
     }
 
-    public static void copyingTimeByArray(String url, String copyFileName, int byteSize) {
+    public static long copyingTimeByArray(String url, String copyFileName, int byteSize) {
         long startTime = System.nanoTime();
         try (InputStream fis = new URL(url).openStream();
              OutputStream fos = new FileOutputStream(copyFileName)) {
@@ -39,8 +39,7 @@ PS внимательно сравните размер исходного фа�
             System.out.println("Ошибка при копировании файла: " + e.getMessage());
         }
         long endTime = System.nanoTime();
-        System.out.println("copyByArray Время: " + (endTime - startTime) / 1_000_000 + " мс");
-
+return (endTime - startTime) / 1_000_000;
     }
 
     public static void copyByByte(InputStream is, OutputStream os) throws IOException {
